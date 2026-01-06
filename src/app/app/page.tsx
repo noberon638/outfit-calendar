@@ -115,7 +115,7 @@ export default function AppPage() {
     (async () => {
       const { data } = await supabase.auth.getUser();
       if (!data.user) {
-        router.replace("/login");
+        router.replace("/outfit-calendar/login");
         return;
       }
       setUserEmail(data.user.email ?? "");
@@ -224,7 +224,7 @@ export default function AppPage() {
 
   async function handleLogout() {
     await supabase.auth.signOut();
-    router.replace("/login");
+    router.replace("/outfit-calendar/login");
   }
 
   function openCamera() {
@@ -378,7 +378,7 @@ export default function AppPage() {
       const { data: auth } = await supabase.auth.getUser();
       const u = auth.user;
       if (!u) {
-        router.replace("/login");
+        router.replace("/outfit-calendar/login");
         return;
       }
 

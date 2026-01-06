@@ -20,7 +20,7 @@ export default function AppPage() {
     (async () => {
       const { data } = await supabase.auth.getUser();
       if (!data.user) {
-        window.location.href = "/login";
+        window.location.href = "/outfit-calendar/login";
         return;
       }
       setEmail(data.user.email ?? "");
@@ -29,7 +29,7 @@ export default function AppPage() {
 
   const logout = async () => {
     await supabase.auth.signOut();
-    window.location.href = "/login";
+    window.location.href = "/outfit-calendar/login";
   };
 
   return (

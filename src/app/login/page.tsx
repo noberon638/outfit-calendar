@@ -23,7 +23,7 @@ export default function LoginPage() {
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        window.location.href = "/app";
+        window.location.href = "/outfit-calendar/app";
       }
     } catch (e: any) {
       setMsg(e.message ?? "エラーが発生しました");
