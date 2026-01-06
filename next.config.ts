@@ -1,11 +1,14 @@
+import type { NextConfig } from "next";
+
 const repo = "outfit-calendar";
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   output: "export",
-  images: { unoptimized: true },
   trailingSlash: true,
-  basePath: process.env.GITHUB_PAGES === "true" ? `/${repo}` : "",
-  assetPrefix: process.env.GITHUB_PAGES === "true" ? `/${repo}/` : "",
+  images: { unoptimized: true },
+
+  basePath: process.env.NODE_ENV === "production" ? `/${repo}` : "",
+  assetPrefix: process.env.NODE_ENV === "production" ? `/${repo}/` : "",
 };
 
 export default nextConfig;
