@@ -107,7 +107,8 @@ export default function AppPage() {
   const [weatherText, setWeatherText] = useState<string>("");
   const [msg, setMsg] = useState<string>("");
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const cameraInputRef = useRef<HTMLInputElement | null>(null);
+  const libraryInputRef = useRef<HTMLInputElement | null>(null);
 
   const ymd = useMemo(() => toYMD(selected), [selected]);
 
@@ -226,10 +227,14 @@ export default function AppPage() {
     await supabase.auth.signOut();
     router.replace("/outfit-calendar/login");
   }
-
   function openCamera() {
     setMsg("");
-    fileInputRef.current?.click();
+    cameraInputRef.current?.click();
+  }
+  
+  function openLibrary() {
+    setMsg("");
+    libraryInputRef.current?.click();
   }
 
   async function onPickFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -483,25 +488,39 @@ export default function AppPage() {
             <div className="mt-6 grid gap-4">
               {/* Photo */}
               <div>
-                <div className="flex items-center justify-between">
-                  <div className="text-sm font-medium">写真（コーデ）</div>
+              <div className="flex items-center justify-between">
+                <div className="text-sm font-medium">写真（コーデ）</div>
+                <div className="flex items-center gap-2">
                   <button
-                    onClick={openCamera}
-                    className="rounded-xl border border-white/20 px-3 py-2 text-xs hover:bg-white/10"
-                  >
-                    撮影/選択
-                  </button>
-                </div>
-
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  capture="environment"
-                  className="hidden"
-                  onChange={onPickFile}
-                />
-
+                  onClick={openCamera}
+                  className="rounded-xl border border-white/20 px-3 py-2 text-xs hover:bg-white/10">
+                    カメラで撮る
+                    </button>
+                    <button
+                    onClick={openLibrary}
+                    className="rounded-xl border border-white/20 px-3 py-2 text-xs hover:bg-white/10">
+                      ライブラリから選ぶ
+                      </button>
+                      </div>
+                      </div>
+                      {/* カメラ用 */}
+                      
+                      <input
+                      ref={cameraInputRef}
+                      type="file"
+                      accept="image/*"
+                      capture="environment"
+                      className="hidden"
+                      onChange={onPickFile}
+                      />
+                      {/* ライブラリ用 */}
+                      <input
+                      ref={libraryInputRef}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={onPickFile}
+                      />
                 <div className="mt-3 overflow-hidden rounded-2xl border border-white/15 bg-black/30">
                   {imagePreviewUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
